@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import cn.smartlab.dao.DBMSDao;
+import cn.smartlab.json.JsonToArray;
 
 public class MapData {
 
@@ -23,7 +23,10 @@ public class MapData {
 	List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
 
 	// ≤‚ ‘sql”Ôæ‰
-	String sql = "select parkno,pname,lat,lon,pamount,restamount,pinfo from parkinfo";
+	// String sql =
+	// "select parkno,pname,lat,lon,pamount,restamount,pinfo from parkinfo";
+
+	String sql = "select * from city";
 
 	@Test
 	public void Test() throws SQLException, ClassNotFoundException, Exception,
@@ -51,6 +54,17 @@ public class MapData {
 
 		}
 
+	}
+
+	@Test
+	public void testJson() throws Exception {
+
+		System.out.println("---------------------------------------------");
+		ResultSet rs = new DBMSDao().query(sql);
+		// ∑‚◊∞¥”json
+		StringBuilder json = new JsonToArray().getObjectToJson(rs);
+
+		System.out.println(json);
 	}
 
 }
